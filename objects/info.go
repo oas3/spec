@@ -9,7 +9,7 @@ type Info struct {
 	// A short description of the API.
 	Description string
 	// A URL to the Terms of Service for the API.
-	TermsOfService string
+	TermsOfService string `yaml:"termsOfService"`
 	// The contact information for the exposed API.
 	Contact Contact
 	// The license information for the exposed API.

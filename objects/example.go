@@ -8,5 +8,5 @@ type Example struct {
 	// Embedded literal example.
 	Value interface{}
 	// A URL that points to the literal example.
-	ExternalValue string
+	ExternalValue string `yaml:"externalValue"`
 }

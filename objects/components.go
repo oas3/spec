@@ -15,11 +15,11 @@ type Components struct {
 	// An object to hold reusable Example Objects.
 	Examples map[string]Example
 	// An object to hold reusable RequestBody Objects.
-	RequestBodies map[string]RequestBody
+	RequestBodies map[string]RequestBody `yaml:"requestBodies"`
 	// An object to hold reusable Header Objects.
 	Headers map[string]Header
 	// An object to hold reusable SecurityScheme Objects.
-	SecuritySchemes map[string]SecurityScheme
+	SecuritySchemes map[string]SecurityScheme `yaml:"securitySchemes"`
 	// An object to hold reusable Link Objects.
 	Links map[string]Link
 	// An object to hold reusable Callback Objects.

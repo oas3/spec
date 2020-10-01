@@ -1,0 +1,8 @@
+- summary: A foo example
+  value: { "foo": "bar" }
+- summary: A bar example
+  value: { "bar": "baz" }
+- summary: This is an example in XML
+  externalValue: 'http://example.org/examples/address-example.xml'
+- summary: This is a text example
+  externalValue: 'http://foo.bar/examples/address-example.txt'
