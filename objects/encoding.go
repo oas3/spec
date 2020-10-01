@@ -3,7 +3,7 @@ package objects
 // Encoding is an encoding definition applied to a single schema property.
 type Encoding struct {
 	// The Content-Type for encoding a specific property.
-	ContentType string
+	ContentType string `yaml:"contentType"`
 	// A map allowing additional information to be provided as headers.
 	Headers map[string]Header
 	// Describes how a specific property value will be serialized depending on its type.
@@ -13,5 +13,5 @@ type Encoding struct {
 	Explode bool
 	// Determines whether the parameter value SHOULD allow reserved characters, as defined
 	// by RFC3986 `:/?#[]@!$&'()*+,;=` to be included without percent-encoding.
-	AllowReserved bool
+	AllowReserved bool `yaml:"allowReserved"`
 }

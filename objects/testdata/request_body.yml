@@ -12,12 +12,12 @@ content:
       $ref: '#/components/schemas/User'
     examples:
       user:
-        summary: User Example in XML
+        summary: User example in XML
         externalValue: 'http://foo.bar/examples/user-example.xml'
   'text/plain':
     examples:
       user:
-        summary: User example in text plain format
+        summary: User example in Plain text
         externalValue: 'http://foo.bar/examples/user-example.txt'
   '*/*':
     examples:

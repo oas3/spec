@@ -27,7 +27,7 @@ type Parameter struct {
 	// Default value is false.
 	Deprecated bool
 	// Sets the ability to pass empty-valued parameters.
-	AllowEmptyValue bool
+	AllowEmptyValue bool `yaml:"allowEmptyValue"`
 
 	// The rules for serialization of the parameter are specified in one of two ways.
 	// For simpler scenarios, a schema and style can describe the structure and syntax of
@@ -41,7 +41,7 @@ type Parameter struct {
 	Explode bool
 	// Determines whether the parameter value SHOULD allow reserved characters, as defined
 	// by RFC3986 `:/?#[]@!$&'()*+,;=` to be included without percent-encoding.
-	AllowReserved bool
+	AllowReserved bool `yaml:"allowReserved"`
 	// The schema defining the type used for the parameter.
 	Schema Schema
 

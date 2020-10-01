@@ -5,6 +5,4 @@ package objects
 // - In must not be specified, it is implicitly in header.
 // - All traits that are affected by the location MUST be applicable to a location of
 //   header (for example, style).
-type Header struct {
-	Parameter
-}
+type Header Parameter
