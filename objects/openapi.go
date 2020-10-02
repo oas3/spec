@@ -4,7 +4,7 @@ package objects
 type OpenAPI struct {
 	// This string MUST be the semantic version number of the OpenAPI Specification
 	// version that the OpenAPI document uses.
-	OpenAPI string `oas3:"REQUIRED"`
+	OpenAPI string `yaml:"openapi" oas3:"REQUIRED"`
 	// Provides metadata about the API.
 	Info Info `oas3:"REQUIRED"`
 	// An array of Server Objects, which provide connectivity information to a target
@@ -19,5 +19,5 @@ type OpenAPI struct {
 	// A list of tags used by the specification with additional metadata.
 	Tags []Tag
 	// Additional external documentation.
-	ExternalDocs ExternalDocumentation
+	ExternalDocs ExternalDocumentation `yaml:"externalDocs"`
 }
