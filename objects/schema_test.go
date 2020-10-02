@@ -2,10 +2,11 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 	"reflect"
 	"testing"
+
+	"github.com/oas3/spec/objects"
+	"gopkg.in/yaml.v2"
 )
 
 func TestSchemaSimplePrimitive(t *testing.T) {
@@ -46,27 +47,8 @@ format: email
 	})
 }
 
-func TestSchemaSimpleModel(t *testing.T) {
-	var obj = objects.Schema{
-		"type":     "object",
-		"required": []interface{}{"name"},
-		"properties": map[string]interface{}{
-			"name": map[string]interface{}{
-				"type": "string",
-			},
-			"address": map[string]interface{}{
-				"$ref": "#/components/schemas/Address",
-			},
-			"age": map[string]interface{}{
-				"type":    "integer",
-				"format":  "int32",
-				"minimum": 0,
-			},
-		},
-	}
-
-	const (
-		JSON = `
+const (
+	simpleModelJSON = `
 {
   "type": "object",
   "required": [
@@ -87,7 +69,7 @@ func TestSchemaSimpleModel(t *testing.T) {
   }
 }
 `
-		YAML = `
+	simpleModelYAML = `
 type: object
 required:
   - name
@@ -101,11 +83,30 @@ properties:
     format: int32
     minimum: 0
 `
-	)
+)
+
+func TestSchemaSimpleModel(t *testing.T) {
+	var obj = objects.Schema{
+		"type":     "object",
+		"required": []interface{}{"name"},
+		"properties": map[string]interface{}{
+			"name": map[string]interface{}{
+				"type": "string",
+			},
+			"address": map[string]interface{}{
+				"$ref": "#/components/schemas/Address",
+			},
+			"age": map[string]interface{}{
+				"type":    "integer",
+				"format":  "int32",
+				"minimum": 0,
+			},
+		},
+	}
 
 	t.Run("JSON", func(t *testing.T) {
 		var schema objects.Schema
-		if err := json.Unmarshal([]byte(JSON), &schema); err != nil {
+		if err := json.Unmarshal([]byte(simpleModelJSON), &schema); err != nil {
 			t.Error(err)
 		}
 
@@ -114,7 +115,7 @@ properties:
 
 	t.Run("YAML", func(t *testing.T) {
 		var schema objects.Schema
-		if err := yaml.Unmarshal([]byte(YAML), &schema); err != nil {
+		if err := yaml.Unmarshal([]byte(simpleModelYAML), &schema); err != nil {
 			t.Error(err)
 		}
 

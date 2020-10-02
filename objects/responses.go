@@ -9,9 +9,9 @@ type Response struct {
 	// A short description of the response.
 	Description string `oas3:"REQUIRED"`
 	// Maps a header name to its definition.
-	Headers     map[string]Header
+	Headers map[string]Header
 	// A map containing descriptions of potential response payloads.
-	Content     map[string]MediaType
+	Content map[string]MediaType
 	// A map of operations links that can be followed from the response.
-	Links       map[string]Link
+	Links map[string]Link
 }

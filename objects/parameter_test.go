@@ -2,10 +2,11 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"testing"
+
+	"github.com/oas3/spec/objects"
+	"gopkg.in/yaml.v2"
 )
 
 var parameterObjs = []objects.Parameter{
@@ -48,7 +49,7 @@ var parameterObjs = []objects.Parameter{
 	},
 	{
 		Name: "freeForm",
-		In: "query",
+		In:   "query",
 		Schema: map[string]interface{}{
 			"type": "object",
 			"additionalProperties": map[string]interface{}{
@@ -59,7 +60,7 @@ var parameterObjs = []objects.Parameter{
 	},
 	{
 		Name: "coordinates",
-		In: "query",
+		In:   "query",
 		Content: map[string]objects.MediaType{
 			"application/json": {
 				Schema: map[string]interface{}{

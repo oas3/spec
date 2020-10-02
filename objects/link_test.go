@@ -2,10 +2,11 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"testing"
+
+	"github.com/oas3/spec/objects"
+	"gopkg.in/yaml.v2"
 )
 
 var linkObjs = []objects.Link{

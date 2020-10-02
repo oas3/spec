@@ -11,7 +11,7 @@ type Operation struct {
 	// Additional external documentation for this operation.
 	ExternalDocs ExternalDocumentation `yaml:"externalDocs"`
 	// Unique string used to identify the operation.
-	OperationID string  `yaml:"operationId"`
+	OperationID string `yaml:"operationId"`
 	// A list of parameters that are applicable for this operation. If a parameter is
 	// already defined at the Path Item, the new definition will override it but can never
 	// remove it.
