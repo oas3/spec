@@ -24,4 +24,4 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
       - uses: actions/checkout@v1
-      - run: go test -v -covermode=count
+      - run: go test ./... -covermode=count
