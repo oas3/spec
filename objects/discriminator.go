@@ -4,7 +4,7 @@ package objects
 // request bodies or response payloads may be one of a number of different schemas.
 type Discriminator struct {
 	// The name of the property in the payload that will hold the discriminator value.
-	PropertyName string `oas3:"REQUIRED"`
+	PropertyName string `yaml:"propertyName" oas3:"REQUIRED"`
 	// An object to hold mappings between payload values and schema names or references.
 	Mapping      map[string]string
 }
