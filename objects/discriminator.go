@@ -6,5 +6,5 @@ type Discriminator struct {
 	// The name of the property in the payload that will hold the discriminator value.
 	PropertyName string `yaml:"propertyName" oas3:"REQUIRED"`
 	// An object to hold mappings between payload values and schema names or references.
-	Mapping      map[string]string
+	Mapping map[string]string
 }

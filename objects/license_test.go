@@ -2,15 +2,16 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"testing"
+
+	"github.com/oas3/spec/objects"
+	"gopkg.in/yaml.v2"
 )
 
 var licenseObj = objects.License{
-	Name:  "Apache 2.0",
-	URL:   "https://www.apache.org/licenses/LICENSE-2.0.html",
+	Name: "Apache 2.0",
+	URL:  "https://www.apache.org/licenses/LICENSE-2.0.html",
 }
 
 func TestLicense(t *testing.T) {

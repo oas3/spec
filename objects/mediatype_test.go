@@ -2,10 +2,11 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"testing"
+
+	"github.com/oas3/spec/objects"
+	"gopkg.in/yaml.v2"
 )
 
 var mediaTypeObj = objects.MediaType{
@@ -24,18 +25,17 @@ var mediaTypeObj = objects.MediaType{
 			},
 		},
 		"dog": {
-			Summary:"An example of a dog with a cat's name",
+			Summary: "An example of a dog with a cat's name",
 			Value: map[string]interface{}{
-				"name": "Puma",
+				"name":    "Puma",
 				"petType": "Dog",
-				"color": "Black",
-				"gender": "Female",
-				"breed": "Mixed",
+				"color":   "Black",
+				"gender":  "Female",
+				"breed":   "Mixed",
 			},
 		},
 	},
 }
-
 
 func TestMediaType(t *testing.T) {
 	t.Run("JSON", func(t *testing.T) {
@@ -71,4 +71,3 @@ func eqMediaType(t *testing.T, t1, t2 objects.MediaType) {
 		eqEncoding(t, e1, e2)
 	}
 }
-

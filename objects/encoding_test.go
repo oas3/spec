@@ -2,10 +2,11 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"testing"
+
+	"github.com/oas3/spec/objects"
+	"gopkg.in/yaml.v2"
 )
 
 var encodingObjs = []objects.Encoding{
@@ -24,7 +25,6 @@ var encodingObjs = []objects.Encoding{
 		},
 	},
 }
-
 
 func TestEncoding(t *testing.T) {
 	t.Run("JSON", func(t *testing.T) {
@@ -65,4 +65,3 @@ func eqEncoding(t *testing.T, e1, e2 objects.Encoding) {
 	eqBool(t, e1.Explode, e2.Explode)
 	eqBool(t, e1.AllowReserved, e2.AllowReserved)
 }
-
