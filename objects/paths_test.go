@@ -2,10 +2,11 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/goccy/go-yaml"
-	"github.com/oas3/spec/objects"
 	"io/ioutil"
 	"testing"
+
+	"github.com/goccy/go-yaml"
+	"github.com/oas3/spec/objects"
 )
 
 var (
