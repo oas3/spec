@@ -5,13 +5,15 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var externalDocObj = objects.ExternalDocumentation{
-	Description: "Find more info here",
-	URL:         "https://example.com",
+	ExternalDocumentationFields: objects.ExternalDocumentationFields{
+		Description: "Find more info here",
+		URL:         "https://example.com",
+	},
 }
 
 func TestExternalDocumentation(t *testing.T) {

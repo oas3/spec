@@ -5,13 +5,15 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var licenseObj = objects.License{
-	Name: "Apache 2.0",
-	URL:  "https://www.apache.org/licenses/LICENSE-2.0.html",
+	LicenseFields: objects.LicenseFields{
+		Name: "Apache 2.0",
+		URL:  "https://www.apache.org/licenses/LICENSE-2.0.html",
+	},
 }
 
 func TestLicense(t *testing.T) {

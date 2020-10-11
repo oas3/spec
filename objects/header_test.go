@@ -5,14 +5,18 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var headerObj = objects.Header{
-	Description: "The number of allowed requests in the current period",
-	Schema: map[string]interface{}{
-		"type": "integer",
+	ParameterFields: objects.ParameterFields{
+		Description: "The number of allowed requests in the current period",
+		Schema: objects.Schema{
+			SchemaFields: objects.SchemaFields{
+				"type": "integer",
+			},
+		},
 	},
 }
 

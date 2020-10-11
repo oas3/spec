@@ -5,103 +5,137 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var componentsObj = objects.Components{
-	Schemas: map[string]objects.Schema{
-		"GeneralError": map[string]interface{}{
-			"type": "object",
-			"properties": map[string]interface{}{
-				"code": map[string]interface{}{
-					"type":   "integer",
-					"format": "int32",
-				},
-				"message": map[string]interface{}{
-					"type": "string",
-				},
-			},
-		},
-		"Category": map[string]interface{}{
-			"type": "object",
-			"properties": map[string]interface{}{
-				"id": map[string]interface{}{
-					"type":   "integer",
-					"format": "int64",
-				},
-				"name": map[string]interface{}{
-					"type": "string",
+	ComponentsFields: objects.ComponentsFields{
+		Schemas: map[string]objects.Schema{
+			"GeneralError": {
+				SchemaFields: objects.SchemaFields{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"code": map[string]interface{}{
+							"type":   "integer",
+							"format": "int32",
+						},
+						"message": map[string]interface{}{
+							"type": "string",
+						},
+					},
 				},
 			},
-		},
-		"Tag": map[string]interface{}{
-			"type": "object",
-			"properties": map[string]interface{}{
-				"id": map[string]interface{}{
-					"type":   "integer",
-					"format": "int64",
+			"Category": {
+				SchemaFields: objects.SchemaFields{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"id": map[string]interface{}{
+							"type":   "integer",
+							"format": "int64",
+						},
+						"name": map[string]interface{}{
+							"type": "string",
+						},
+					},
 				},
-				"name": map[string]interface{}{
-					"type": "string",
-				},
 			},
-		},
-	},
-	Parameters: map[string]objects.Parameter{
-		"skipParam": {
-			Name:        "skip",
-			In:          "query",
-			Description: "number of items to skip",
-			Required:    true,
-			Schema: map[string]interface{}{
-				"type":   "integer",
-				"format": "int32",
-			},
-		},
-		"limitParam": {
-			Name:        "limit",
-			In:          "query",
-			Description: "max records to return",
-			Required:    true,
-			Schema: map[string]interface{}{
-				"type":   "integer",
-				"format": "int32",
-			},
-		},
-	},
-	Responses: map[string]objects.Response{
-		"NotFound": {
-			Description: "Entity not found.",
-		},
-		"IllegalInput": {
-			Description: "Illegal input for operation.",
-		},
-		"GeneralError": {
-			Description: "General Error",
-			Content: map[string]objects.MediaType{
-				"application/json": {
-					Schema: map[string]interface{}{
-						"$ref": "#/components/schemas/GeneralError",
+			"Tag": {
+				SchemaFields: objects.SchemaFields{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"id": map[string]interface{}{
+							"type":   "integer",
+							"format": "int64",
+						},
+						"name": map[string]interface{}{
+							"type": "string",
+						},
 					},
 				},
 			},
 		},
-	},
-	SecuritySchemes: map[string]objects.SecurityScheme{
-		"api_key": {
-			Type: "apiKey",
-			Name: "api_key",
-			In:   "header",
+		Parameters: map[string]objects.Parameter{
+			"skipParam": {
+				ParameterFields: objects.ParameterFields{
+					Name:        "skip",
+					In:          "query",
+					Description: "number of items to skip",
+					Required:    true,
+					Schema: objects.Schema{
+						SchemaFields: objects.SchemaFields{
+							"type":   "integer",
+							"format": "int32",
+						},
+					},
+				},
+			},
+			"limitParam": {
+				ParameterFields: objects.ParameterFields{
+					Name:        "limit",
+					In:          "query",
+					Description: "max records to return",
+					Required:    true,
+					Schema: objects.Schema{
+						SchemaFields: objects.SchemaFields{
+							"type":   "integer",
+							"format": "int32",
+						},
+					},
+				},
+			},
 		},
-		"petstore_auth": {
-			Type: "oauth2",
-			Flows: objects.OAuthFlows{
-				Implicit: objects.OAuthFlow{
-					AuthorizationURL: "http://example.org/api/oauth/dialog",
-					Scopes: map[string]string{
-						"write:pets": "modify pets in your account",
-						"read:pets":  "read your pets",
+		Responses: map[string]objects.Response{
+			"NotFound": {
+				ResponseFields: objects.ResponseFields{
+					Description: "Entity not found.",
+				},
+			},
+			"IllegalInput": {
+				ResponseFields: objects.ResponseFields{
+					Description: "Illegal input for operation.",
+				},
+			},
+			"GeneralError": {
+				ResponseFields: objects.ResponseFields{
+					Description: "General Error",
+					Content: map[string]objects.MediaType{
+						"application/json": {
+							MediaTypeFields: objects.MediaTypeFields{
+								Schema: objects.Schema{
+									SchemaFields: objects.SchemaFields{
+										"$ref": "#/components/schemas/GeneralError",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		SecuritySchemes: map[string]objects.SecurityScheme{
+			"api_key": {
+				SecuritySchemeFields: objects.SecuritySchemeFields{
+					Type: "apiKey",
+					Name: "api_key",
+					In:   "header",
+				},
+			},
+			"petstore_auth": {
+				SecuritySchemeFields: objects.SecuritySchemeFields{
+					Type: "oauth2",
+					Flows: objects.OAuthFlows{
+						OAuthFlowsFields: objects.OAuthFlowsFields{
+							Implicit: objects.OAuthFlow{
+								OAuthFlowFields: objects.OAuthFlowFields{
+									AuthorizationURL: "http://example.org/api/oauth/dialog",
+									Scopes: map[string]string{
+										"write:pets": "modify pets in your account",
+										"read:pets":  "read your pets",
+									},
+								},
+							},
+						},
 					},
 				},
 			},

@@ -5,32 +5,42 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var (
 	serverObj = objects.Server{
-		URL:         "https://development.gigantic-server.com/v1",
-		Description: "Development server",
+		ServerFields: objects.ServerFields{
+			URL:         "https://development.gigantic-server.com/v1",
+			Description: "Development server",
+		},
 	}
 	serverVariablesObj = objects.Server{
-		URL:         "https://{username}.gigantic-server.com:{port}/{basePath}",
-		Description: "The production API server",
-		Variables: map[string]objects.ServerVariable{
-			"username": {
-				Default:     "demo",
-				Description: "this value is assigned by the service provider, in this example `gigantic-server.com`",
-			},
-			"port": {
-				Enum: []string{
-					"8443",
-					"443",
+		ServerFields: objects.ServerFields{
+			URL:         "https://{username}.gigantic-server.com:{port}/{basePath}",
+			Description: "The production API server",
+			Variables: map[string]objects.ServerVariable{
+				"username": {
+					ServerVariableFields: objects.ServerVariableFields{
+						Default:     "demo",
+						Description: "this value is assigned by the service provider, in this example `gigantic-server.com`",
+					},
 				},
-				Default: "8443",
-			},
-			"basePath": {
-				Default: "v2",
+				"port": {
+					ServerVariableFields: objects.ServerVariableFields{
+						Enum: []string{
+							"8443",
+							"443",
+						},
+						Default: "8443",
+					},
+				},
+				"basePath": {
+					ServerVariableFields: objects.ServerVariableFields{
+						Default: "v2",
+					},
+				},
 			},
 		},
 	}

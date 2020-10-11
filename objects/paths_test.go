@@ -2,27 +2,40 @@ package objects_test
 
 import (
 	"encoding/json"
+	"github.com/goccy/go-yaml"
+	"github.com/oas3/spec/objects"
 	"io/ioutil"
 	"testing"
-
-	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var (
 	pathsObj = objects.Paths{
-		"/pets": {
-			Get: objects.Operation{
-				Description: "Returns all pets from the system that the user has access to",
-				Responses: map[string]objects.Response{
-					"200": {
-						Description: "A list of pets.",
-						Content: map[string]objects.MediaType{
-							"application/json": {
-								Schema: map[string]interface{}{
-									"type": "array",
-									"items": map[string]interface{}{
-										"$ref": "#/components/schemas/pet",
+		PathsFields: objects.PathsFields{
+			"/pets": {
+				PathItemFields: objects.PathItemFields{
+					Get: objects.Operation{
+						OperationFields: objects.OperationFields{
+							Description: "Returns all pets from the system that the user has access to",
+							Responses: objects.Responses{
+								ResponsesFields: map[string]objects.Response{
+									"200": {
+										ResponseFields: objects.ResponseFields{
+											Description: "A list of pets.",
+											Content: map[string]objects.MediaType{
+												"application/json": {
+													MediaTypeFields: objects.MediaTypeFields{
+														Schema: objects.Schema{
+															SchemaFields: objects.SchemaFields{
+																"type": "array",
+																"items": map[string]interface{}{
+																	"$ref": "#/components/schemas/pet",
+																},
+															},
+														},
+													},
+												},
+											},
+										},
 									},
 								},
 							},
@@ -34,49 +47,71 @@ var (
 	}
 
 	pathItemObj = objects.PathItem{
-		Get: objects.Operation{
-			Description: "Returns pets based on ID",
-			Summary:     "Find pets by ID",
-			OperationID: "getPetsById",
-			Responses: objects.Responses{
-				"200": {
-					Description: "pet response",
-					Content: map[string]objects.MediaType{
-						"*/*": {
-							Schema: map[string]interface{}{
-								"type": "array",
-								"items": map[string]interface{}{
-									"$ref": "#/components/schemas/Pet",
+		PathItemFields: objects.PathItemFields{
+			Get: objects.Operation{
+				OperationFields: objects.OperationFields{
+					Description: "Returns pets based on ID",
+					Summary:     "Find pets by ID",
+					OperationID: "getPetsById",
+					Responses: objects.Responses{
+						ResponsesFields: map[string]objects.Response{
+							"200": {
+								ResponseFields: objects.ResponseFields{
+									Description: "pet response",
+									Content: map[string]objects.MediaType{
+										"*/*": {
+											MediaTypeFields: objects.MediaTypeFields{
+												Schema: objects.Schema{
+													SchemaFields: objects.SchemaFields{
+														"type": "array",
+														"items": map[string]interface{}{
+															"$ref": "#/components/schemas/Pet",
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+							"default": {
+								ResponseFields: objects.ResponseFields{
+									Description: "error payload",
+									Content: map[string]objects.MediaType{
+										"text/html": {
+											MediaTypeFields: objects.MediaTypeFields{
+												Schema: objects.Schema{
+													SchemaFields: objects.SchemaFields{
+														"$ref": "#/components/schemas/ErrorModel",
+													},
+												},
+											},
+										},
+									},
 								},
 							},
 						},
 					},
 				},
-				"default": {
-					Description: "error payload",
-					Content: map[string]objects.MediaType{
-						"text/html": {
-							Schema: map[string]interface{}{
-								"$ref": "#/components/schemas/ErrorModel",
+			},
+			Parameters: []objects.Parameter{
+				{
+					ParameterFields: objects.ParameterFields{
+						Name:        "id",
+						In:          "path",
+						Description: "ID of pet to use",
+						Required:    true,
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "array",
+								"items": map[string]interface{}{
+									"type": "string",
+								},
 							},
 						},
+						Style: "simple",
 					},
 				},
-			},
-		},
-		Parameters: []objects.Parameter{
-			{
-				Name:        "id",
-				In:          "path",
-				Description: "ID of pet to use",
-				Required:    true,
-				Schema: map[string]interface{}{
-					"type": "array",
-					"items": map[string]interface{}{
-						"type": "string",
-					},
-				},
-				Style: "simple",
 			},
 		},
 	}
@@ -123,9 +158,9 @@ func TestPathItem(t *testing.T) {
 }
 
 func eqPaths(t *testing.T, ps1, ps2 objects.Paths) {
-	eqInt(t, len(ps1), len(ps2))
-	for k, i1 := range ps1 {
-		i2 := ps2[k]
+	eqInt(t, len(ps1.PathsFields), len(ps2.PathsFields))
+	for k, i1 := range ps1.PathsFields {
+		i2 := ps2.PathsFields[k]
 		eqPathItem(t, i1, i2)
 	}
 }

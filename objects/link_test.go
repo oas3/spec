@@ -5,33 +5,41 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var linkObjs = []objects.Link{
 	{
-		OperationID: "getUserAddress",
-		Parameters: map[string]interface{}{
-			"userId": "$request.path.id",
+		LinkFields: objects.LinkFields{
+			OperationID: "getUserAddress",
+			Parameters: map[string]interface{}{
+				"userId": "$request.path.id",
+			},
 		},
 	},
 	{
-		OperationID: "getUserAddressByUUID",
-		Parameters: map[string]interface{}{
-			"userUuid": "$response.body#/uuid",
+		LinkFields: objects.LinkFields{
+			OperationID: "getUserAddressByUUID",
+			Parameters: map[string]interface{}{
+				"userUuid": "$response.body#/uuid",
+			},
 		},
 	},
 	{
-		OperationRef: "#/paths/~12.0~1repositories~1{username}/get",
-		Parameters: map[string]interface{}{
-			"username": "$response.body#/username",
+		LinkFields: objects.LinkFields{
+			OperationRef: "#/paths/~12.0~1repositories~1{username}/get",
+			Parameters: map[string]interface{}{
+				"username": "$response.body#/username",
+			},
 		},
 	},
 	{
-		OperationRef: "https://na2.gigantic-server.com/#/paths/~12.0~1repositories~1{username}/get",
-		Parameters: map[string]interface{}{
-			"username": "$response.body#/username",
+		LinkFields: objects.LinkFields{
+			OperationRef: "https://na2.gigantic-server.com/#/paths/~12.0~1repositories~1{username}/get",
+			Parameters: map[string]interface{}{
+				"username": "$response.body#/username",
+			},
 		},
 	},
 }

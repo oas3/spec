@@ -5,53 +5,73 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var schemesObj = []objects.SecurityScheme{
 	{
-		Type:   "http",
-		Scheme: "basic",
+		SecuritySchemeFields: objects.SecuritySchemeFields{
+			Type:   "http",
+			Scheme: "basic",
+		},
 	},
 	{
-		Type: "apiKey",
-		Name: "api_key",
-		In:   "header",
+		SecuritySchemeFields: objects.SecuritySchemeFields{
+			Type: "apiKey",
+			Name: "api_key",
+			In:   "header",
+		},
 	},
 	{
-		Type:         "http",
-		Scheme:       "bearer",
-		BearerFormat: "JWT",
+		SecuritySchemeFields: objects.SecuritySchemeFields{
+			Type:         "http",
+			Scheme:       "bearer",
+			BearerFormat: "JWT",
+		},
 	},
 	{
-		Type: "oauth2",
-		Flows: objects.OAuthFlows{
-			Implicit: objects.OAuthFlow{
-				AuthorizationURL: "https://example.com/api/oauth/dialog",
-				Scopes: map[string]string{
-					"write:pets": "modify pets in your account",
-					"read:pets":  "read your pets",
+		SecuritySchemeFields: objects.SecuritySchemeFields{
+			Type: "oauth2",
+			Flows: objects.OAuthFlows{
+				OAuthFlowsFields: objects.OAuthFlowsFields{
+					Implicit: objects.OAuthFlow{
+						OAuthFlowFields: objects.OAuthFlowFields{
+							AuthorizationURL: "https://example.com/api/oauth/dialog",
+							Scopes: map[string]string{
+								"write:pets": "modify pets in your account",
+								"read:pets":  "read your pets",
+							},
+						},
+					},
 				},
 			},
 		},
 	},
 	{
-		Type: "oauth2",
-		Flows: objects.OAuthFlows{
-			Implicit: objects.OAuthFlow{
-				AuthorizationURL: "https://example.com/api/oauth/dialog",
-				Scopes: map[string]string{
-					"write:pets": "modify pets in your account",
-					"read:pets":  "read your pets",
-				},
-			},
-			AuthorizationCode: objects.OAuthFlow{
-				AuthorizationURL: "https://example.com/api/oauth/dialog",
-				TokenURL:         "https://example.com/api/oauth/token",
-				Scopes: map[string]string{
-					"write:pets": "modify pets in your account",
-					"read:pets":  "read your pets",
+		SecuritySchemeFields: objects.SecuritySchemeFields{
+			Type: "oauth2",
+			Flows: objects.OAuthFlows{
+				OAuthFlowsFields: objects.OAuthFlowsFields{
+					Implicit: objects.OAuthFlow{
+						OAuthFlowFields: objects.OAuthFlowFields{
+							AuthorizationURL: "https://example.com/api/oauth/dialog",
+							Scopes: map[string]string{
+								"write:pets": "modify pets in your account",
+								"read:pets":  "read your pets",
+							},
+						},
+					},
+					AuthorizationCode: objects.OAuthFlow{
+						OAuthFlowFields: objects.OAuthFlowFields{
+							AuthorizationURL: "https://example.com/api/oauth/dialog",
+							TokenURL:         "https://example.com/api/oauth/token",
+							Scopes: map[string]string{
+								"write:pets": "modify pets in your account",
+								"read:pets":  "read your pets",
+							},
+						},
+					},
 				},
 			},
 		},

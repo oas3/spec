@@ -5,14 +5,16 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 func TestSchemaSimplePrimitive(t *testing.T) {
 	var obj = objects.Schema{
-		"type":   "string",
-		"format": "email",
+		SchemaFields: objects.SchemaFields{
+			"type":   "string",
+			"format": "email",
+		},
 	}
 
 	const (
@@ -87,19 +89,21 @@ properties:
 
 func TestSchemaSimpleModel(t *testing.T) {
 	var obj = objects.Schema{
-		"type":     "object",
-		"required": []interface{}{"name"},
-		"properties": map[string]interface{}{
-			"name": map[string]interface{}{
-				"type": "string",
-			},
-			"address": map[string]interface{}{
-				"$ref": "#/components/schemas/Address",
-			},
-			"age": map[string]interface{}{
-				"type":    "integer",
-				"format":  "int32",
-				"minimum": 0,
+		SchemaFields: objects.SchemaFields{
+			"type":     "object",
+			"required": []interface{}{"name"},
+			"properties": map[string]interface{}{
+				"name": map[string]interface{}{
+					"type": "string",
+				},
+				"address": map[string]interface{}{
+					"$ref": "#/components/schemas/Address",
+				},
+				"age": map[string]interface{}{
+					"type":    "integer",
+					"format":  "int32",
+					"minimum": 0,
+				},
 			},
 		},
 	}
