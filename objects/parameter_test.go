@@ -5,75 +5,97 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var parameterObjs = []objects.Parameter{
 	{
-		Name:        "token",
-		In:          "header",
-		Description: "token to be passed as a header",
-		Required:    true,
-		Style:       "simple",
-		Schema: map[string]interface{}{
-			"type": "array",
-			"items": map[string]interface{}{
-				"type":   "integer",
-				"format": "int64",
-			},
-		},
-	},
-	{
-		Name:        "username",
-		In:          "path",
-		Description: "username to fetch",
-		Required:    true,
-		Schema: map[string]interface{}{
-			"type": "string",
-		},
-	},
-	{
-		Name:        "id",
-		In:          "query",
-		Description: "ID of the object to fetch",
-		Required:    false,
-		Schema: map[string]interface{}{
-			"type": "array",
-			"items": map[string]interface{}{
-				"type": "string",
-			},
-		},
-		Style:   "form",
-		Explode: true,
-	},
-	{
-		Name: "freeForm",
-		In:   "query",
-		Schema: map[string]interface{}{
-			"type": "object",
-			"additionalProperties": map[string]interface{}{
-				"type": "integer",
-			},
-		},
-		Style: "form",
-	},
-	{
-		Name: "coordinates",
-		In:   "query",
-		Content: map[string]objects.MediaType{
-			"application/json": {
-				Schema: map[string]interface{}{
-					"type": "object",
-					"required": []interface{}{
-						"lat", "long",
+		ParameterFields: objects.ParameterFields{
+			Name:        "token",
+			In:          "header",
+			Description: "token to be passed as a header",
+			Required:    true,
+			Style:       "simple",
+			Schema: objects.Schema{
+				SchemaFields: objects.SchemaFields{
+					"type": "array",
+					"items": map[string]interface{}{
+						"type":   "integer",
+						"format": "int64",
 					},
-					"properties": map[string]interface{}{
-						"lat": map[string]interface{}{
-							"type": "number",
-						},
-						"long": map[string]interface{}{
-							"type": "number",
+				},
+			},
+		},
+	},
+	{
+		ParameterFields: objects.ParameterFields{
+			Name:        "username",
+			In:          "path",
+			Description: "username to fetch",
+			Required:    true,
+			Schema: objects.Schema{
+				SchemaFields: objects.SchemaFields{
+					"type": "string",
+				},
+			},
+		},
+	},
+	{
+		ParameterFields: objects.ParameterFields{
+			Name:        "id",
+			In:          "query",
+			Description: "ID of the object to fetch",
+			Required:    false,
+			Schema: objects.Schema{
+				SchemaFields: objects.SchemaFields{
+					"type": "array",
+					"items": map[string]interface{}{
+						"type": "string",
+					},
+				},
+			},
+			Style:   "form",
+			Explode: true,
+		},
+	},
+	{
+		ParameterFields: objects.ParameterFields{
+			Name: "freeForm",
+			In:   "query",
+			Schema: objects.Schema{
+				SchemaFields: objects.SchemaFields{
+					"type": "object",
+					"additionalProperties": map[string]interface{}{
+						"type": "integer",
+					},
+				},
+			},
+			Style: "form",
+		},
+	},
+	{
+		ParameterFields: objects.ParameterFields{
+			Name: "coordinates",
+			In:   "query",
+			Content: map[string]objects.MediaType{
+				"application/json": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "object",
+								"required": []interface{}{
+									"lat", "long",
+								},
+								"properties": map[string]interface{}{
+									"lat": map[string]interface{}{
+										"type": "number",
+									},
+									"long": map[string]interface{}{
+										"type": "number",
+									},
+								},
+							},
 						},
 					},
 				},

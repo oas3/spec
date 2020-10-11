@@ -1,5 +1,10 @@
 package objects
 
+import (
+	"encoding/json"
+	"github.com/goccy/go-yaml"
+)
+
 // Parameter describes a single operation parameter.
 // A unique parameter is defined by a combination of a name and location.
 //
@@ -14,6 +19,11 @@ package objects
 //            states header names are case insensitive.
 // - cookie:  Used to pass a specific cookie value to the API.
 type Parameter struct {
+	ParameterFields
+	SpecificationExtensions
+}
+
+type ParameterFields struct {
 	// The name of the parameter. Parameter names are case sensitive.
 	Name string `oas3:"REQUIRED"`
 	// The location of the parameter.
@@ -55,4 +65,53 @@ type Parameter struct {
 
 	// A map containing the representations for the parameter.
 	Content map[string]MediaType
+}
+
+func (p Parameter) MarshalJSON() ([]byte, error) {
+	fields, err := json.Marshal(p.ParameterFields)
+	if err != nil {
+		return nil, err
+	}
+	var fieldMap map[string]interface{}
+	if err := json.Unmarshal(fields, &fieldMap); err != nil {
+		return nil, err
+	}
+	for k, v := range p.SpecificationExtensions {
+		fieldMap[k] = v
+	}
+	return json.Marshal(fieldMap)
+}
+
+func (p *Parameter) UnmarshalJSON(data []byte) error {
+	if err := p.SpecificationExtensions.UnmarshalJSON(data); err != nil {
+		return err
+	}
+	return json.Unmarshal(data, &p.ParameterFields)
+}
+
+func (p Parameter) MarshalYAML() (interface{}, error) {
+	fields, err := yaml.Marshal(p.ParameterFields)
+	if err != nil {
+		return nil, err
+	}
+	var fieldMap map[string]interface{}
+	if err := yaml.Unmarshal(fields, &fieldMap); err != nil {
+		return nil, err
+	}
+	for k, v := range p.SpecificationExtensions {
+		fieldMap[k] = v
+	}
+	return yaml.Marshal(fieldMap)
+}
+
+func (p *Parameter) UnmarshalYAML(data []byte) error {
+	if err := p.SpecificationExtensions.UnmarshalYAML(data); err != nil {
+		return err
+	}
+	var fields ParameterFields
+	if err := yaml.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+	p.ParameterFields = fields
+	return nil
 }

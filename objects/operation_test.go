@@ -5,66 +5,84 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var operationObj = objects.Operation{
-	Tags:        []string{"pet"},
-	Summary:     "Updates a pet in the store with form data",
-	OperationID: "updatePetWithForm",
-	Parameters: []objects.Parameter{
-		{
-			Name:        "petId",
-			In:          "path",
-			Description: "ID of pet that needs to be updated",
-			Required:    true,
-			Schema: map[string]interface{}{
-				"type": "string",
-			},
-		},
-	},
-	RequestBody: objects.RequestBody{
-		Content: map[string]objects.MediaType{
-			"application/x-www-form-urlencoded": {
-				Schema: map[string]interface{}{
-					"type": "object",
-					"properties": map[string]interface{}{
-						"name": map[string]interface{}{
-							"description": "Updated name of the pet",
-							"type":        "string",
-						},
-						"status": map[string]interface{}{
-							"description": "Updated status of the pet",
-							"type":        "string",
+	OperationFields: objects.OperationFields{
+		Tags:        []string{"pet"},
+		Summary:     "Updates a pet in the store with form data",
+		OperationID: "updatePetWithForm",
+		Parameters: []objects.Parameter{
+			{
+				ParameterFields: objects.ParameterFields{
+					Name:        "petId",
+					In:          "path",
+					Description: "ID of pet that needs to be updated",
+					Required:    true,
+					Schema: objects.Schema{
+						SchemaFields: objects.SchemaFields{
+							"type": "string",
 						},
 					},
-					"required": []interface{}{"status"},
 				},
 			},
 		},
-	},
-	Responses: map[string]objects.Response{
-		"200": {
-			Description: "Pet updated.",
-			Content: map[string]objects.MediaType{
-				"application/json": {},
-				"application/xml":  {},
+		RequestBody: objects.RequestBody{
+			RequestBodyFields: objects.RequestBodyFields{
+				Content: map[string]objects.MediaType{
+					"application/x-www-form-urlencoded": {
+						MediaTypeFields: objects.MediaTypeFields{
+							Schema: objects.Schema{
+								SchemaFields: objects.SchemaFields{
+									"type": "object",
+									"properties": map[string]interface{}{
+										"name": map[string]interface{}{
+											"description": "Updated name of the pet",
+											"type":        "string",
+										},
+										"status": map[string]interface{}{
+											"description": "Updated status of the pet",
+											"type":        "string",
+										},
+									},
+									"required": []interface{}{"status"},
+								},
+							},
+						},
+					},
+				},
 			},
 		},
-		"405": {
-			Description: "Method Not Allowed",
-			Content: map[string]objects.MediaType{
-				"application/json": {},
-				"application/xml":  {},
+		Responses: objects.Responses{
+			ResponsesFields: map[string]objects.Response{
+				"200": {
+					ResponseFields: objects.ResponseFields{
+						Description: "Pet updated.",
+						Content: map[string]objects.MediaType{
+							"application/json": {},
+							"application/xml":  {},
+						},
+					},
+				},
+				"405": {
+					ResponseFields: objects.ResponseFields{
+						Description: "Method Not Allowed",
+						Content: map[string]objects.MediaType{
+							"application/json": {},
+							"application/xml":  {},
+						},
+					},
+				},
 			},
 		},
-	},
-	Security: []objects.SecurityRequirement{
-		{
-			"petstore_auth": []string{
-				"write:pets",
-				"read:pets",
+		Security: []objects.SecurityRequirement{
+			{
+				"petstore_auth": []string{
+					"write:pets",
+					"read:pets",
+				},
 			},
 		},
 	},

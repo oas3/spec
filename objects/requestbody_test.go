@@ -5,63 +5,91 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var (
 	requestBodyObj = objects.RequestBody{
-		Description: "user to add to the system",
-		Content: map[string]objects.MediaType{
-			"application/json": {
-				Schema: map[string]interface{}{
-					"$ref": "#/components/schemas/User",
-				},
-				Examples: map[string]objects.Example{
-					"user": {
-						Summary:       "User Example",
-						ExternalValue: "http://foo.bar/examples/user-example.json",
+		RequestBodyFields: objects.RequestBodyFields{
+			Description: "user to add to the system",
+			Content: map[string]objects.MediaType{
+				"application/json": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"$ref": "#/components/schemas/User",
+							},
+						},
+						Examples: map[string]objects.Example{
+							"user": {
+								ExampleFields: objects.ExampleFields{
+									Summary:       "User Example",
+									ExternalValue: "http://foo.bar/examples/user-example.json",
+								},
+							},
+						},
 					},
 				},
-			},
-			"application/xml": {
-				Schema: map[string]interface{}{
-					"$ref": "#/components/schemas/User",
-				},
-				Examples: map[string]objects.Example{
-					"user": {
-						Summary:       "User example in XML",
-						ExternalValue: "http://foo.bar/examples/user-example.xml",
+				"application/xml": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"$ref": "#/components/schemas/User",
+							},
+						},
+						Examples: map[string]objects.Example{
+							"user": {
+								ExampleFields: objects.ExampleFields{
+									Summary:       "User example in XML",
+									ExternalValue: "http://foo.bar/examples/user-example.xml",
+								},
+							},
+						},
 					},
 				},
-			},
-			"text/plain": {
-				Examples: map[string]objects.Example{
-					"user": {
-						Summary:       "User example in Plain text",
-						ExternalValue: "http://foo.bar/examples/user-example.txt",
+				"text/plain": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Examples: map[string]objects.Example{
+							"user": {
+								ExampleFields: objects.ExampleFields{
+									Summary:       "User example in Plain text",
+									ExternalValue: "http://foo.bar/examples/user-example.txt",
+								},
+							},
+						},
 					},
 				},
-			},
-			"*/*": {
-				Examples: map[string]objects.Example{
-					"user": {
-						Summary:       "User example in other format",
-						ExternalValue: "http://foo.bar/examples/user-example.whatever",
+				"*/*": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Examples: map[string]objects.Example{
+							"user": {
+								ExampleFields: objects.ExampleFields{
+									Summary:       "User example in other format",
+									ExternalValue: "http://foo.bar/examples/user-example.whatever",
+								},
+							},
+						},
 					},
 				},
 			},
 		},
 	}
 	requestBodyArrObj = objects.RequestBody{
-		Description: "user to add to the system",
-		Required:    true,
-		Content: map[string]objects.MediaType{
-			"text/plain": {
-				Schema: map[string]interface{}{
-					"type": "array",
-					"items": map[string]interface{}{
-						"type": "string",
+		RequestBodyFields: objects.RequestBodyFields{
+			Description: "user to add to the system",
+			Required:    true,
+			Content: map[string]objects.MediaType{
+				"text/plain": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "array",
+								"items": map[string]interface{}{
+									"type": "string",
+								},
+							},
+						},
 					},
 				},
 			},

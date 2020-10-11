@@ -5,86 +5,132 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var (
 	responsesObj = objects.Responses{
-		"200": {
-			Description: "a pet to be returned",
-			Content: map[string]objects.MediaType{
-				"application/json": {
-					Schema: map[string]interface{}{
-						"$ref": "#/components/schemas/Pet",
+		ResponsesFields: map[string]objects.Response{
+			"200": {
+				ResponseFields: objects.ResponseFields{
+					Description: "a pet to be returned",
+					Content: map[string]objects.MediaType{
+						"application/json": {
+							MediaTypeFields: objects.MediaTypeFields{
+								Schema: objects.Schema{
+									SchemaFields: objects.SchemaFields{
+										"$ref": "#/components/schemas/Pet",
+									},
+								},
+							},
+						},
 					},
 				},
 			},
-		},
-		"default": {
-			Description: "Unexpected error",
-			Content: map[string]objects.MediaType{
-				"application/json": {
-					Schema: map[string]interface{}{
-						"$ref": "#/components/schemas/ErrorModel",
+			"default": {
+				ResponseFields: objects.ResponseFields{
+					Description: "Unexpected error",
+					Content: map[string]objects.MediaType{
+						"application/json": {
+							MediaTypeFields: objects.MediaTypeFields{
+								Schema: objects.Schema{
+									SchemaFields: objects.SchemaFields{
+										"$ref": "#/components/schemas/ErrorModel",
+									},
+								},
+							},
+						},
 					},
 				},
 			},
 		},
 	}
 	responseObj = objects.Response{
-		Description: "A complex object array response",
-		Content: map[string]objects.MediaType{
-			"application/json": {
-				Schema: map[string]interface{}{
-					"type": "array",
-					"items": map[string]interface{}{
-						"$ref": "#/components/schemas/VeryComplexType",
+		ResponseFields: objects.ResponseFields{
+			Description: "A complex object array response",
+			Content: map[string]objects.MediaType{
+				"application/json": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "array",
+								"items": map[string]interface{}{
+									"$ref": "#/components/schemas/VeryComplexType",
+								},
+							},
+						},
 					},
 				},
 			},
 		},
 	}
 	responseEmptyObj = objects.Response{
-		Description: "object created",
+		ResponseFields: objects.ResponseFields{
+			Description: "object created",
+		},
 	}
 	responsePlainObj = objects.Response{
-		Description: "A simple string response",
-		Content: map[string]objects.MediaType{
-			"text/plain": {
-				Schema: map[string]interface{}{
-					"type":    "string",
-					"example": "whoa!",
+		ResponseFields: objects.ResponseFields{
+			Description: "A simple string response",
+			Content: map[string]objects.MediaType{
+				"text/plain": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type":    "string",
+								"example": "whoa!",
+							},
+						},
+					},
 				},
 			},
-		},
-		Headers: map[string]objects.Header{
-			"X-Rate-Limit-Limit": {
-				Description: "The number of allowed requests in the current period",
-				Schema: map[string]interface{}{
-					"type": "integer",
+			Headers: map[string]objects.Header{
+				"X-Rate-Limit-Limit": {
+					ParameterFields: objects.ParameterFields{
+						Description: "The number of allowed requests in the current period",
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "integer",
+							},
+						},
+					},
 				},
-			},
-			"X-Rate-Limit-Remaining": {
-				Description: "The number of remaining requests in the current period",
-				Schema: map[string]interface{}{
-					"type": "integer",
+				"X-Rate-Limit-Remaining": {
+					ParameterFields: objects.ParameterFields{
+						Description: "The number of remaining requests in the current period",
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "integer",
+							},
+						},
+					},
 				},
-			},
-			"X-Rate-Limit-Reset": {
-				Description: "The number of seconds left in the current period",
-				Schema: map[string]interface{}{
-					"type": "integer",
+				"X-Rate-Limit-Reset": {
+					ParameterFields: objects.ParameterFields{
+						Description: "The number of seconds left in the current period",
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "integer",
+							},
+						},
+					},
 				},
 			},
 		},
 	}
 	responseStrObj = objects.Response{
-		Description: "A simple string response",
-		Content: map[string]objects.MediaType{
-			"text/plain": {
-				Schema: map[string]interface{}{
-					"type": "string",
+		ResponseFields: objects.ResponseFields{
+			Description: "A simple string response",
+			Content: map[string]objects.MediaType{
+				"text/plain": {
+					MediaTypeFields: objects.MediaTypeFields{
+						Schema: objects.Schema{
+							SchemaFields: objects.SchemaFields{
+								"type": "string",
+							},
+						},
+					},
 				},
 			},
 		},
@@ -192,9 +238,9 @@ func TestResponse_string(t *testing.T) {
 }
 
 func eqResponses(t *testing.T, rs1, rs2 objects.Responses) {
-	eqInt(t, len(rs1), len(rs2))
-	for k, r1 := range rs1 {
-		r2 := rs2[k]
+	eqInt(t, len(rs1.ResponsesFields), len(rs2.ResponsesFields))
+	for k, r1 := range rs1.ResponsesFields {
+		r2 := rs2.ResponsesFields[k]
 		eqResponse(t, r1, r2)
 	}
 }

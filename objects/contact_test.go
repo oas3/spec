@@ -5,14 +5,16 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var contactObj = objects.Contact{
-	Name:  "API Support",
-	URL:   "http://www.example.com/support",
-	Email: "support@example.com",
+	ContactFields: objects.ContactFields{
+		Name:  "API Support",
+		URL:   "http://www.example.com/support",
+		Email: "support@example.com",
+	},
 }
 
 func TestContact(t *testing.T) {

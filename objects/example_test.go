@@ -5,30 +5,38 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var exampleObjs = []objects.Example{
 	{
-		Summary: "A foo example",
-		Value: map[string]interface{}{
-			"foo": "bar",
+		ExampleFields: objects.ExampleFields{
+			Summary: "A foo example",
+			Value: map[string]interface{}{
+				"foo": "bar",
+			},
 		},
 	},
 	{
-		Summary: "A bar example",
-		Value: map[string]interface{}{
-			"bar": "baz",
+		ExampleFields: objects.ExampleFields{
+			Summary: "A bar example",
+			Value: map[string]interface{}{
+				"bar": "baz",
+			},
 		},
 	},
 	{
-		Summary:       "This is an example in XML",
-		ExternalValue: "http://example.org/examples/address-example.xml",
+		ExampleFields: objects.ExampleFields{
+			Summary:       "This is an example in XML",
+			ExternalValue: "http://example.org/examples/address-example.xml",
+		},
 	},
 	{
-		Summary:       "This is a text example",
-		ExternalValue: "http://foo.bar/examples/address-example.txt",
+		ExampleFields: objects.ExampleFields{
+			Summary:       "This is a text example",
+			ExternalValue: "http://foo.bar/examples/address-example.txt",
+		},
 	},
 }
 
@@ -70,8 +78,6 @@ func eqExample(t *testing.T, i1, i2 objects.Example) {
 		switch v := i2.Value.(type) {
 		case map[string]interface{}:
 			i2Value = v
-		case map[interface{}]interface{}:
-			i2Value = objects.ConvertMap(v)
 		}
 		eq(t, i1Value, i2Value)
 	}

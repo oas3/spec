@@ -5,33 +5,41 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/goccy/go-yaml"
 	"github.com/oas3/spec/objects"
-	"gopkg.in/yaml.v2"
 )
 
 var mediaTypeObj = objects.MediaType{
-	Schema: map[string]interface{}{
-		"$ref": "#/components/schemas/Pet",
-	},
-	Examples: map[string]objects.Example{
-		"cat": {
-			Summary: "An example of a cat",
-			Value: map[string]interface{}{
-				"name":    "Fluffy",
-				"petType": "Cat",
-				"color":   "White",
-				"gender":  "male",
-				"breed":   "Persian",
+	MediaTypeFields: objects.MediaTypeFields{
+		Schema: objects.Schema{
+			SchemaFields: objects.SchemaFields{
+				"$ref": "#/components/schemas/Pet",
 			},
 		},
-		"dog": {
-			Summary: "An example of a dog with a cat's name",
-			Value: map[string]interface{}{
-				"name":    "Puma",
-				"petType": "Dog",
-				"color":   "Black",
-				"gender":  "Female",
-				"breed":   "Mixed",
+		Examples: map[string]objects.Example{
+			"cat": {
+				ExampleFields: objects.ExampleFields{
+					Summary: "An example of a cat",
+					Value: map[string]interface{}{
+						"name":    "Fluffy",
+						"petType": "Cat",
+						"color":   "White",
+						"gender":  "male",
+						"breed":   "Persian",
+					},
+				},
+			},
+			"dog": {
+				ExampleFields: objects.ExampleFields{
+					Summary: "An example of a dog with a cat's name",
+					Value: map[string]interface{}{
+						"name":    "Puma",
+						"petType": "Dog",
+						"color":   "Black",
+						"gender":  "Female",
+						"breed":   "Mixed",
+					},
+				},
 			},
 		},
 	},
