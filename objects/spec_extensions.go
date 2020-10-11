@@ -2,8 +2,9 @@ package objects
 
 import (
 	"encoding/json"
-	"github.com/goccy/go-yaml"
 	"strings"
+
+	"github.com/goccy/go-yaml"
 )
 
 type SpecificationExtensions map[string]interface{}
@@ -25,15 +26,15 @@ func (e *SpecificationExtensions) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	e_ := make(SpecificationExtensions)
+	extensions := make(SpecificationExtensions)
 	for k, v := range all {
 		lower := strings.ToLower(k)
 		if strings.HasPrefix(lower, "x-") {
-			e_[k] = v
+			extensions[k] = v
 		}
 	}
-	if len(e_) != 0 {
-		*e = e_
+	if len(extensions) != 0 {
+		*e = extensions
 	}
 	return nil
 }
@@ -55,15 +56,15 @@ func (e *SpecificationExtensions) UnmarshalYAML(data []byte) error {
 		return err
 	}
 
-	e_ := make(SpecificationExtensions)
+	extensions := make(SpecificationExtensions)
 	for k, v := range all {
 		lower := strings.ToLower(k)
 		if strings.HasPrefix(lower, "x-") {
-			e_[k] = v
+			extensions[k] = v
 		}
 	}
-	if len(e_) != 0 {
-		*e = e_
+	if len(extensions) != 0 {
+		*e = extensions
 	}
 	return nil
 }

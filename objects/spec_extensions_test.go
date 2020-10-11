@@ -2,8 +2,9 @@ package objects_test
 
 import (
 	"encoding/json"
-	"github.com/oas3/spec/objects"
 	"testing"
+
+	"github.com/oas3/spec/objects"
 )
 
 func TestSpecificationExtensions_MarshalJSON(t *testing.T) {
